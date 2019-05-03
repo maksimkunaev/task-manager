@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import './Header.styl';
 import { bind } from 'decko';
+import functions from '../../functions';
+const { notification } = functions;
 
 class Header extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            error: '',
             login: '',
             password: '',
             isFormAuthVisible: false,
@@ -23,10 +26,20 @@ class Header extends Component {
     @bind
     onSignIn(e) {
         e.preventDefault();
+
+
         const {
                 login,
                 password,
         } = this.state;
+
+        if (!login || !password) {
+            notification.error({
+                title: 'Error',
+                text: 'Login or password is empty!'
+            })
+            return;
+        }
 
         const data = {
             login,
@@ -34,6 +47,7 @@ class Header extends Component {
         }
 
         this.props.signIn(data);
+
     }
 
     @bind
@@ -63,21 +77,30 @@ class Header extends Component {
     @bind
     onChange(field, e) {
 
-        // this.setState({
-        //     inValid: {
-        //         [`${field}`]: false
-        //     }
-        // })
+        this.setState({
+            inValid: {
+                [`${field}`]: false
+            }
+        })
 
+        this.props.changeInputData();
         this.setState({
             [`${field}`]: e.target.value,
         })
     }
 
     render() {
+        const { error } = this.props;
+
         const { isFormAuthVisible } = this.state;
         const { isAdmin } = this.props;
-
+        if (error) {
+            notification.error({
+                title: 'Error',
+                text: error
+            })
+        }
+        
         return (
           <div className="header">
               <h1 className="title">Task Manager</h1>

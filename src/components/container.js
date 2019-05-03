@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
     loadingStatus: state.loadingStatus,
     isAdmin: state.isAdmin,
     total:state.total,
+    error:state.error,
 })
 
 function editRemote(id, params, signature) {
@@ -133,7 +134,6 @@ const mapDispatchToProps = dispatch => ({
     editRemote(id, data, signature)
       .then(getAllRemote)
       .then(data => onSuccess(data, dispatch))
-      .then(data => onSuccess(data, dispatch))
       .catch(error => onError(error, dispatch))
     },
   getAllTasks: (query) => {
@@ -146,7 +146,12 @@ const mapDispatchToProps = dispatch => ({
             type: 'signIn',
             data,
         })
-    }
+    },
+  changeInputData: () => {
+    dispatch({
+      type: 'changeText',
+    })
+  }
 })
 
 function onSuccess(data, dispatch) {

@@ -5,6 +5,7 @@ const config = {
 }
 
 const initialState = {
+    error: '',
     isAdmin: false,
     tasks: [],
     total: 0,
@@ -67,10 +68,29 @@ function updateTotal(state = initialState.total, action) {
     return state;
 }
 
+function handleError(state = initialState.error, action) {
+
+    switch (action.type) {
+        case 'signIn':
+            const { data } = action;
+
+            if (data.password === config.password && data.login === config.login) {
+                return '';
+            } else {
+                return 'Login or password is not correct!';
+            }
+        case 'changeText':
+            return '';
+    }
+
+    return state;
+}
+
 
 export default combineReducers({
     isAdmin: authorize,
     tasks: updateTasks,
     loadingStatus: getLoadingState,
     total: updateTotal,
+    error: handleError,
 })
