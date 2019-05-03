@@ -47,6 +47,7 @@ function authorize(state = initialState.isAdmin, action) {
 
     return state;
 }
+
 function updateTotal(state = initialState.total, action) {
 
     switch (action.type) {
@@ -56,7 +57,6 @@ function updateTotal(state = initialState.total, action) {
 
     return state;
 }
-
 
 export default combineReducers({
     isAdmin: authorize,

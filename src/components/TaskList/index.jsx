@@ -2,29 +2,34 @@ import React, { Component } from 'react';
 import './TaskList.styl';
 import { bind } from 'decko';
 import Table from "../Table";
+import functions from '../../functions';
+const { windowSize } = functions;
 
 class TaskList extends Component {
     @bind
     columns() {
+        const size = windowSize();
+        const isMobile = size === 'M';
+
         return [
             {
                 key: 'email',
                 title:  'Email',
-                width: 100,
+                width: isMobile ? 100 : 200,
             },
             {
                 key: 'username',
                 title:  'Name',
-                width: 100,
+                width: isMobile ? 100 : 200,
             },
             {
                 key: 'text',
-                width: 100,
+                width: isMobile ? 100 : 200,
                 title:  'Description',
             },
             {
                 key: 'status',
-                width: 50,
+                width: isMobile ? 50 : 150,
                 title: 'Status',
                 render: data => {
                     return data.status === 0 ?

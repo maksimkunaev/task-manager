@@ -85,8 +85,18 @@ const notification = {
   }
 }
 
+function windowSize () {
+  const { innerWidth  } = window;
+  return innerWidth > 778
+    ? 'D'
+    : ( innerWidth > 592 && innerWidth <= 778 )
+      ? 'T'
+      : innerWidth <= 592
+      ? 'M' : 'D';
+}
 export default {
   generateToken,
   validateEmail,
   notification,
+  windowSize,
 }
