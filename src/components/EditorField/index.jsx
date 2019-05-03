@@ -147,7 +147,7 @@ class EditorField extends Component {
 
               </form>
               <button type="submit" className="button field" onClick={this.addTask}>{mode === 'add' ? 'Add' : 'Save'}</button>
-              <div className="field status" style={{visibility: 'visible'}}>Success!</div>
+              {/*<div className="field status" style={{visibility: 'visible'}}>Success!</div>*/}
           </div>
         )
     }
