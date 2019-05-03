@@ -10,6 +10,7 @@ const mapStateToProps = state => ({
 })
 
 function getAllRemote (params) {
+  console.log(`getAllRemote`)
     const { baseUrl, developer } = config;
     let query = `?developer=${developer}`;
 
@@ -60,13 +61,11 @@ function addTaskRemote(options) {
         return response.json();
       })
       .then(data => {
-        // const { message } = data;
-        // resolve(message);
+        resolve();
       })
       .catch(error => {
-        // reject(error)
         console.log(`error`, error)
-
+        reject(error)
       })
 
   })
@@ -82,32 +81,31 @@ const mapDispatchToProps = dispatch => ({
             type: 'create',
             data: task,
         };
-       addTaskRemote(options.data);
-       // dispatch(options)
-       getAllRemote()
-         .then(data => {
-           const { tasks, total_task_count } = data;
-           dispatch({
-             type: 'updateAll',
-             list: tasks || [],
-           })
-
-           dispatch({
-             type: 'updateTotal',
-             total: total_task_count
-           })
-
-           dispatch({
-             type: 'loading',
-             loadingStatus: 'success',
-           })
+     addTaskRemote(options.data)
+       .then(getAllRemote)
+       .then(data => {
+         const { tasks, total_task_count } = data;
+         dispatch({
+           type: 'updateAll',
+           list: tasks || [],
          })
-         .catch(() => {
-           dispatch({
-             type: 'loading',
-             loadingStatus: 'error',
-           })
+
+         dispatch({
+           type: 'updateTotal',
+           total: total_task_count
          })
+
+         dispatch({
+           type: 'loading',
+           loadingStatus: 'success',
+         })
+       })
+       .catch(() => {
+         dispatch({
+           type: 'loading',
+           loadingStatus: 'error',
+         })
+       })
     },
     editTask: (id, data) => {
         // editRemote(id)
