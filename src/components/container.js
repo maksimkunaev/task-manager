@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import config from '../config';
+import md5 from "crypto-js/md5";
 
 const mapStateToProps = state => ({
     tasks: state.tasks,
@@ -9,31 +10,83 @@ const mapStateToProps = state => ({
     total:state.total,
 })
 
+
+function generateToken(id, params) {
+  const { editableFields, token } = config;
+  let query = ``;
+
+  let newParams = { ...params, token };
+
+  let queryFields = editableFields;
+  queryFields = queryFields.sort();
+  queryFields = queryFields.concat('token');
+
+  queryFields.map(field => {
+    query = `${query}&${field}=${newParams[field]}`
+  })
+
+  query = encodeURIComponent(query);
+  return md5(query).toString();
+}
+
+function editRemote (id, params, signature) {
+  const { baseUrl, developer } = config;
+  let query = `?developer=${developer}`;
+
+  const { username, email } = params;
+  const form = new FormData();
+  form.append("username", username);
+  form.append("email", email);
+  form.append("signature", signature);
+
+  return new Promise((resolve, reject) => {
+      fetch(`${baseUrl}/edit/${id}${query}`, {
+        method: 'POST',
+        crossDomain: true,
+        mimeType: "multipart/form-data",
+        contentType: false,
+        processData: false,
+        body: form,
+        dataType: "json",
+      })
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            const { message } = data;
+            resolve(message);
+        })
+        .catch(error => {
+            reject(error)
+        })
+  })
+}
+
+
 function getAllRemote (params) {
-  console.log(`getAllRemote`)
-    const { baseUrl, developer } = config;
-    let query = `?developer=${developer}`;
+  const { baseUrl, developer } = config;
+  let query = `?developer=${developer}`;
 
-    for (let key in params) {
+  for (let key in params) {
 
-        if (params.hasOwnProperty(key) && params[key]) {
-            query = `${query}&${key}=${params[key]}`
-        }
+    if (params.hasOwnProperty(key) && params[key]) {
+      query = `${query}&${key}=${params[key]}`
     }
+  }
 
-    return new Promise((resolve, reject) => {
-        fetch(`${baseUrl}/${query}`)
-          .then(response => {
-              return response.json();
-          })
-          .then(data => {
-              const { message } = data;
-              resolve(message);
-          })
-          .catch(error => {
-              reject(error)
-          })
-    })
+  return new Promise((resolve, reject) => {
+    fetch(`${baseUrl}/${query}`)
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        const { message } = data;
+        resolve(message);
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
 }
 
 function addTaskRemote(options) {
@@ -112,7 +165,9 @@ const mapDispatchToProps = dispatch => ({
          })
       },
     editTask: (id, data) => {
-        // editRemote(id)
+      const signature = generateToken(id, data);
+
+      editRemote(id, data, signature)
         dispatch({
             type: 'edit',
             id: id,

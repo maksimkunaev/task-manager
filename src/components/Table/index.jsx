@@ -185,16 +185,17 @@ class Table extends Component {
 
         return (
           <div>
-              <table className="tasks__list">
+              {data.length > 0 && <table className="tasks__list">
                   <thead>
                   {this.renderHead()}
                   </thead>
                   <tbody>
-                      {data.map(taskData => {
-                          return this.renderRow(taskData)
-                      })}
+                  {data.map(taskData => {
+                      return this.renderRow(taskData)
+                  })}
                   </tbody>
               </table>
+              }
 
               {data.length > 0 && <div className="block__pagination">
                   {this.renderPagination()}

@@ -139,7 +139,7 @@ class EditorField extends Component {
                     className={cn('field', inValid.status && 'invalid')}
                     type="number"
                     min={0}
-                    step={1}
+                    step={10}
                     max={10}
                     value={this.state.status}
                     placeholder={'status'}

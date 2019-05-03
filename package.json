@@ -32,6 +32,7 @@
     "autoprefixer": "^8.6.3",
     "classnames": "^2.2.6",
     "component-directory-webpack-plugin": "^1.0.5",
+    "crypto-js": "^3.1.9-1",
     "debounce": "^1.1.0",
     "decko": "^1.2.0",
     "firebase": "^5.4.2",
