@@ -2,14 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import config from '../config';
 import functions from '../functions';
-const { generateToken } = functions;
+const { generateToken, notification } = functions;
 
 const mapStateToProps = state => ({
     tasks: state.tasks,
     loadingStatus: state.loadingStatus,
     isAdmin: state.isAdmin,
     total:state.total,
-    error:state.error,
 })
 
 function editRemote(id, params, signature) {
@@ -38,9 +37,17 @@ function editRemote(id, params, signature) {
         })
         .then(data => {
             const { message } = data;
+            notification.success({
+              title: 'Success',
+              text: 'Saved!'
+            })
             resolve(message);
         })
         .catch(error => {
+          notification.error({
+            title: 'Error',
+            text: error
+          })
             reject(error)
         })
   })
@@ -69,6 +76,21 @@ function getAllRemote (params) {
       .catch(error => {
         reject(error)
       })
+  })
+}
+
+function signIn (data) {
+  const config = {
+    login: 'admin',
+    password: '123',
+  }
+
+  return new Promise((resolve, reject) => {
+    if (data.password === config.password && data.login === config.login) {
+      return resolve();
+    } else {
+      return reject('Password or login is not correct!');
+    }
   })
 }
 
@@ -125,8 +147,18 @@ const mapDispatchToProps = dispatch => ({
 
     addTaskRemote(options.data)
      .then(getAllRemote)
-      .then(data => onSuccess(data, dispatch))
-      .catch(error => onError(error, dispatch))
+      .then(data => {
+        notification.success({
+          text: 'Added!'
+        })
+        onSuccess(data, dispatch)
+      })
+      .catch(error => {
+        notification.error({
+          text: error
+        })
+        onError(error, dispatch)
+      })
   },
   editTask: (id, data) => {
     const signature = generateToken(id, data);
@@ -142,16 +174,24 @@ const mapDispatchToProps = dispatch => ({
       .catch(error => onError(error, dispatch))
   },
   signIn: data => {
-        dispatch({
-            type: 'signIn',
-            data,
+    signIn(data)
+      .then(() => {
+          dispatch({
+              type: 'signIn',
+          })
+          notification.success({
+            title: 'Success',
+            text: 'Logged in!'
+          })
         })
-    },
-  changeInputData: () => {
-    dispatch({
-      type: 'changeText',
-    })
-  }
+      .catch(error => {
+        notification.error({
+          title: 'Error',
+          text: error
+        })
+      })
+
+    }
 })
 
 function onSuccess(data, dispatch) {

@@ -50,7 +50,7 @@ class Table extends Component {
         const { columns, isAdmin } = this.props;
 
         return (
-          <tr className="block_wrap block">
+          <tr className="block_wrap block tableHead">
               {columns.map(({ title, width, key }) => {
                   return <th key={key} width={width}>
                       <div className="blockItems">
