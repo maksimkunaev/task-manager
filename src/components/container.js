@@ -22,10 +22,10 @@ function generateToken(id, params) {
   queryFields = queryFields.concat('token');
 
   queryFields.map(field => {
-    query = `${query}&${field}=${newParams[field]}`
+    query = `${query}&${encodeURIComponent(field)}=${encodeURIComponent(newParams[field])}`
   })
 
-  query = encodeURIComponent(query);
+  query = query.slice(1)
   return md5(query).toString();
 }
 
@@ -33,10 +33,13 @@ function editRemote (id, params, signature) {
   const { baseUrl, developer } = config;
   let query = `?developer=${developer}`;
 
-  const { username, email } = params;
+  const { text, status, username, email} = params;
   const form = new FormData();
-  form.append("username", username);
-  form.append("email", email);
+  // form.append("email", email);
+  // form.append("username", username);
+  form.append("text", text);
+  form.append("status", status);
+  form.append("token", 'beejee');
   form.append("signature", signature);
 
   return new Promise((resolve, reject) => {
@@ -55,9 +58,12 @@ function editRemote (id, params, signature) {
         .then(data => {
             const { message } = data;
             resolve(message);
+          console.log(data.message)
+
         })
         .catch(error => {
             reject(error)
+          console.log(error.message)
         })
   })
 }
