@@ -10,17 +10,21 @@ class TaskList extends Component {
             {
                 key: 'email',
                 title:  'Email',
+                width: 200,
             },
             {
                 key: 'username',
                 title:  'Name',
+                width: 200,
             },
             {
                 key: 'text',
+                width: 200,
                 title:  'Description',
             },
             {
                 key: 'status',
+                width: 50,
                 title:  'Status',
             },
         ];

@@ -3,7 +3,7 @@ import './Table.styl';
 import { bind } from 'decko';
 import EditorField from "../EditorField";
 import cn from 'classnames'
-class TaskList extends Component {
+class Table extends Component {
 
     constructor(props) {
         super(props);
@@ -41,26 +41,40 @@ class TaskList extends Component {
         const isCurrentTaskEditable = isEdit && editTaskId === id;
 
         if (isCurrentTaskEditable) {
-            return <li className="block_wrap" key={id}>
-                <div className="block">
+            return <tr className="block_wrap" key={id}>
+                <td className="block">
                     <EditorField {...this.props} onChange={this.editTask.bind(this, id)} mode='edit' currentTaskId={id}/>
-                </div>
-            </li>
+                </td>
+            </tr>
         }
         const columns = this.props.columns;
 
         return (
-          <li className="block_wrap" key={id}>
-              <div className="block">
+          <tr className="block_wrap block" key={id}>
+              {columns.map(({ key, width }) => {
+                  return <td key={key} width={width}>
+                      <div className="blockItems">
+                          <div className="blockItem">{data[key]}</div>
+                      </div>
+                  </td>
+              })}
+              {isAdmin &&  <td className="">
                   <div className="blockItems">
-                      {columns.map(({ key }) => {
-                          return <div className="blockItem">{data[key]}</div>
-                      })}
+                      <button className="button blockItem" onClick={this.onTaskClick.bind(this, id)}>edit</button>
                   </div>
-                  {isAdmin && <button className="button" onClick={this.onTaskClick.bind(this, id)}>edit</button>}
-              </div>
+              </td>
+              }
 
-          </li>
+              {/*<td className="block">*/}
+                  {/*<div className="blockItems">*/}
+                      {/*{columns.map(({ key }) => {*/}
+                          {/*return <div className="blockItem">{data[key]}</div>*/}
+                      {/*})}*/}
+                  {/*</div>*/}
+                  {/*{isAdmin && <button className="button" onClick={this.onTaskClick.bind(this, id)}>edit</button>}*/}
+              {/*</td>*/}
+
+          </tr>
         )
     }
 
@@ -125,11 +139,14 @@ class TaskList extends Component {
 
         return (
           <div>
-              <ul className="tasks__list">
+              <table className="tasks__list">
+                  <tbody>
                   {data.map(taskData => {
                       return this.renderTask(taskData)
                   })}
-              </ul>
+                  </tbody>
+
+              </table>
 
               {data.length > 0 && <div className="block__pagination">
                   {this.renderPagination()}
@@ -141,4 +158,4 @@ class TaskList extends Component {
     }
 }
 
-export default TaskList;
+export default Table;
