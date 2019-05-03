@@ -94,10 +94,13 @@ class Table extends Component {
 
         return (
           <tr className="block_wrap block" key={id}>
-              {columns.map(({ key, width }) => {
+              {columns.map(({ key, width, render }) => {
                   return <td key={key} width={width}>
                       <div className="blockItems">
-                          <div className="blockItem">{data[key]}</div>
+                          <div className="blockItem">{
+                              render ?
+                                render(data): data[key]
+                          }</div>
                       </div>
                   </td>
               })}

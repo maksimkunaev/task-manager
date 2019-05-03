@@ -1,9 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import config from '../config';
-import md5 from "crypto-js/md5";
-// import functions from '../functions';
-// const generateToken = functions.generateToken;
+import functions from '../functions';
+const { generateToken } = functions;
 
 const mapStateToProps = state => ({
     tasks: state.tasks,
@@ -12,46 +11,15 @@ const mapStateToProps = state => ({
     total:state.total,
 })
 
-function generateToken(id, params) {
-  const { editableFields, token } = config;
-  let query = ``;
-
-  let newParams = { ...params, token };
-
-  let queryFields = editableFields;
-  queryFields = queryFields.sort();
-  queryFields = queryFields.concat('token');
-
-  function fixedEncodeURIComponent (str) {
-    return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
-      return '%' + c.charCodeAt(0).toString(16);
-    });
-  }
-  
-  let newResult = {};
-  queryFields.map(field => {
-
-    const key = fixedEncodeURIComponent(field);
-    const value = fixedEncodeURIComponent(newParams[field]);
-    newResult[key] = value;
-
-    query = `${query}&${key}=${value}`
-
-  })
-
-  query = query.slice(1)
-  return md5(query).toString();
-}
-
 function editRemote(id, params, signature) {
-  const { baseUrl, developer } = config;
+  const { baseUrl, developer, token } = config;
   let query = `?developer=${developer}`;
 
   const { text, status} = params;
   const form = new FormData();
   form.append("text", text);
   form.append("status", status);
-  form.append("token", 'beejee');
+  form.append("token", token);
   form.append("signature", signature);
 
   return new Promise((resolve, reject) => {
@@ -79,7 +47,6 @@ function editRemote(id, params, signature) {
         })
   })
 }
-
 
 function getAllRemote (params) {
   const { baseUrl, developer } = config;
@@ -131,7 +98,7 @@ function addTaskRemote(options) {
       .then(response => {
         return response.json();
       })
-      .then(data => {
+      .then(() => {
         resolve();
       })
       .catch(error => {
@@ -143,87 +110,72 @@ function addTaskRemote(options) {
 }
 
 const mapDispatchToProps = dispatch => ({
-     addTask: (data) => {
-         const task = {
-             ...data,
-             id: Date.now() + Math.round(Math.random() * 1000),
-         }
-        const options = {
-            type: 'create',
-            data: task,
-        };
-       dispatch({
-         type: 'loading',
-         loadingStatus: 'fetching',
-       })
-       addTaskRemote(options.data)
-         .then(getAllRemote)
-         .then(data => {
-           const { tasks, total_task_count } = data;
-           dispatch({
-             type: 'updateAll',
-             list: tasks || [],
-           })
+  addTask: (data) => {
+    const task = {
+     ...data,
+     id: Date.now() + Math.round(Math.random() * 1000),
+    }
 
-           dispatch({
-             type: 'updateTotal',
-             total: total_task_count
-           })
+    const options = {
+        type: 'create',
+        data: task,
+    };
 
-           dispatch({
-             type: 'loading',
-             loadingStatus: 'success',
-           })
-         })
-         .catch(() => {
-           dispatch({
-             type: 'loading',
-             loadingStatus: 'error',
-           })
-         })
-      },
-    editTask: (id, data) => {
-      const signature = generateToken(id, data);
+    dispatch({
+    type: 'loading',
+    loadingStatus: 'fetching',
+    })
 
-      editRemote(id, data, signature)
-        dispatch({
-            type: 'edit',
-            id: id,
-            data,
-        })
+    addTaskRemote(options.data)
+     .then(getAllRemote)
+      .then(data => onSuccess(data, dispatch))
+      .catch(error => onError(error, dispatch))
+  },
+  editTask: (id, data) => {
+    const signature = generateToken(id, data);
+
+    editRemote(id, data, signature)
+      .then(getAllRemote)
+      .then(data => onSuccess(data, dispatch))
+      .then(data => onSuccess(data, dispatch))
+      .catch(error => onError(error, dispatch))
     },
-      getAllTasks: (query) => {
-        getAllRemote(query)
-          .then(data => {
-            const { tasks, total_task_count } = data;
-            dispatch({
-                type: 'updateAll',
-                list: tasks || [],
-              })
-
-            dispatch({
-              type: 'updateTotal',
-              total: total_task_count
-            })
-
-            dispatch({
-                type: 'loading',
-                loadingStatus: 'success',
-              })
-          })
-          .catch(() => {
-            dispatch({
-                type: 'loading',
-                loadingStatus: 'error',
-              })
-          })
-      },
-    signIn: data => {
+  getAllTasks: (query) => {
+    getAllRemote(query)
+      .then(data => onSuccess(data, dispatch))
+      .catch(error => onError(error, dispatch))
+  },
+  signIn: data => {
         dispatch({
             type: 'signIn',
             data,
         })
     }
 })
+
+function onSuccess(data, dispatch) {
+  const { tasks, total_task_count } = data;
+  dispatch({
+    type: 'updateAll',
+    list: tasks || [],
+  })
+
+  dispatch({
+    type: 'updateTotal',
+    total: total_task_count
+  })
+
+  dispatch({
+    type: 'loading',
+    loadingStatus: 'success',
+  })
+}
+
+function onError(error, dispatch) {
+  dispatch({
+    type: 'loading',
+    loadingStatus: 'error',
+  })
+}
 
 export default component => connect(mapStateToProps, mapDispatchToProps)(component);

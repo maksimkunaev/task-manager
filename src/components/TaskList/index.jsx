@@ -26,6 +26,11 @@ class TaskList extends Component {
                 key: 'status',
                 width: 150,
                 title: 'Status',
+                render: data => {
+                    return data.status === 0 ?
+                      <div style={{color: 'red'}}>new</div>
+                        : data.status === 10 ?  <div style={{color: 'green'}}>completed</div> : <div style={{color: 'red'}}>new</div>
+                      }
             },
         ];
     }
