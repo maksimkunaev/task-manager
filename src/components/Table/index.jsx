@@ -186,7 +186,7 @@ class Table extends Component {
         }
 
         return (
-          <div>
+          <div className="tableWrap">
               {data.length > 0 && <table className="tasks__list">
                   <thead>
                   {this.renderHead()}

@@ -10,21 +10,21 @@ class TaskList extends Component {
             {
                 key: 'email',
                 title:  'Email',
-                width: 200,
+                width: 100,
             },
             {
                 key: 'username',
                 title:  'Name',
-                width: 200,
+                width: 100,
             },
             {
                 key: 'text',
-                width: 200,
+                width: 100,
                 title:  'Description',
             },
             {
                 key: 'status',
-                width: 150,
+                width: 50,
                 title: 'Status',
                 render: data => {
                     return data.status === 0 ?
