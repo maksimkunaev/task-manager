@@ -126,7 +126,7 @@ class TaskList extends Component {
 
     render() {
         const {tasks, loadingStatus} = this.props;
-
+console.log(`loadingStatus`,loadingStatus)
         return (
             <main className='tasks'>
                 {loadingStatus === 'success' && !tasks.length && <div className='tasks__nodata'>Add Some Task</div>}

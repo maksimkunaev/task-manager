@@ -2,6 +2,7 @@
     width: 100%;
     display: flex
     justify-content: space-between;
+    position: relative
 
 .fields
     flex-grow 1
@@ -25,6 +26,28 @@ placeholder() {
     color: #40496060;
 }
 
+input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.status
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #008000;
+    border-radius: 5px;
+    border: 1px solid #008000;
+    position: absolute;
+    top: 42px;
+    right: 0;
+    padding: 4px 8px;
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
 
 &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     placeholder();

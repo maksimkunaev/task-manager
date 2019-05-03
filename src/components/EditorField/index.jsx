@@ -111,7 +111,7 @@ class EditorField extends Component {
     }
 
     render() {
-        const { mode } = this.props;
+        const { mode, loadingStatus } = this.props;
         const { inValid } = this.state;
 
         return (
@@ -147,6 +147,7 @@ class EditorField extends Component {
 
               </form>
               <button type="submit" className="button field" onClick={this.addTask}>{mode === 'add' ? 'Add' : 'Save'}</button>
+              <div className="field status" style={{visibility: 'visible'}}>Success!</div>
           </div>
         )
     }

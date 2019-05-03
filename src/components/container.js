@@ -81,32 +81,36 @@ const mapDispatchToProps = dispatch => ({
             type: 'create',
             data: task,
         };
-     addTaskRemote(options.data)
-       .then(getAllRemote)
-       .then(data => {
-         const { tasks, total_task_count } = data;
-         dispatch({
-           type: 'updateAll',
-           list: tasks || [],
-         })
-
-         dispatch({
-           type: 'updateTotal',
-           total: total_task_count
-         })
-
-         dispatch({
-           type: 'loading',
-           loadingStatus: 'success',
-         })
+       dispatch({
+         type: 'loading',
+         loadingStatus: 'fetching',
        })
-       .catch(() => {
-         dispatch({
-           type: 'loading',
-           loadingStatus: 'error',
+       addTaskRemote(options.data)
+         .then(getAllRemote)
+         .then(data => {
+           const { tasks, total_task_count } = data;
+           dispatch({
+             type: 'updateAll',
+             list: tasks || [],
+           })
+
+           dispatch({
+             type: 'updateTotal',
+             total: total_task_count
+           })
+
+           dispatch({
+             type: 'loading',
+             loadingStatus: 'success',
+           })
          })
-       })
-    },
+         .catch(() => {
+           dispatch({
+             type: 'loading',
+             loadingStatus: 'error',
+           })
+         })
+      },
     editTask: (id, data) => {
         // editRemote(id)
         dispatch({
