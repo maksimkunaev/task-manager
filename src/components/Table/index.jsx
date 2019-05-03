@@ -57,10 +57,7 @@ class Table extends Component {
                           <div className="blockItem">{title}</div>
 
                           <div className="arrows">
-                              <div className="arrow-up" onClick={() => {
-                                  console.log(key, 'asc')
-                                  this.onSortClick.bind(this, key, 'asc')
-                              }}/>
+                              <div className="arrow-up" onClick={this.onSortClick.bind(this, key, 'asc')}/>
                               <div className='arrow-down' onClick={this.onSortClick.bind(this, key, 'desc')}/>
                           </div>
 
