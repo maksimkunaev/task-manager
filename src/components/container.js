@@ -38,12 +38,9 @@ function editRemote(id, params, signature) {
         .then(data => {
             const { message } = data;
             resolve(message);
-          console.log(data.message)
-
         })
         .catch(error => {
             reject(error)
-          console.log(error.message)
         })
   })
 }
@@ -102,7 +99,6 @@ function addTaskRemote(options) {
         resolve();
       })
       .catch(error => {
-        console.log(`error`, error)
         reject(error)
       })
 

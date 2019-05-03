@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import "./index.styl";
 import Header from "./Header";
 import TaskList from "./TaskList";
-import EditorField from "./EditorField";
+import AddTask from "./AddTask";
 import container from "./container";
-import { bind } from 'decko'
-class App extends Component {
+import { bind } from 'decko';
 
+class App extends Component {
   componentDidMount() {
     this.getInitialRemote();
   }
@@ -16,19 +16,12 @@ class App extends Component {
     this.props.getAllTasks();
   }
 
-  @bind
-  addTask(data) {
-    this.props.addTask(data)
-  }
-
   render() {
       return (
         <div className="app">
           <div className="container">
             <Header {...this.props}/>
-            <div className="addTask">
-              <EditorField {...this.props} onChange={this.addTask} mode='add'/>
-            </div>
+            <AddTask {...this.props}/>
             <TaskList {...this.props} />
           </div>
         </div>

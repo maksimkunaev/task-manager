@@ -184,7 +184,6 @@ class Table extends Component {
                 </td>
             </tr>
         }
-        const columns = this.props.columns;
 
         return (
           <div>

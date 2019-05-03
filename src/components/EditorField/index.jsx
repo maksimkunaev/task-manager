@@ -2,25 +2,9 @@ import React, { Component } from 'react';
 import './EditorField.styl';
 import { bind } from 'decko';
 import cn from 'classnames';
-function validateEmail(email) {
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-}
+import functions from '../../functions';
+const { validateEmail } = functions;
 
-function validate() {
-    var $result = $("#result");
-    var email = $("#email").val();
-    $result.text("");
-
-    if (validateEmail(email)) {
-        $result.text(email + " is valid :)");
-        $result.css("color", "green");
-    } else {
-        $result.text(email + " is not valid :(");
-        $result.css("color", "red");
-    }
-    return false;
-}
 class EditorField extends Component {
 
     constructor(props) {
@@ -44,7 +28,6 @@ class EditorField extends Component {
         }
     }
 
-
     @bind
     setInitState() {
         const { currentTaskId } = this.props;
@@ -67,7 +50,6 @@ class EditorField extends Component {
         })
     }
 
-
     @bind
     addTask(e) {
         e.preventDefault();
@@ -76,8 +58,6 @@ class EditorField extends Component {
 
         let inValidEmail = false;
         if (!validateEmail(email)) {
-            console.log(`email`)
-
             inValidEmail = true;
         }
 
@@ -106,12 +86,10 @@ class EditorField extends Component {
             text: "",
             status: 0,
         })
-
-
     }
 
     render() {
-        const { mode, loadingStatus } = this.props;
+        const { mode } = this.props;
         const { inValid } = this.state;
 
         return (
