@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import config from '../config';
 import md5 from "crypto-js/md5";
+// import functions from '../functions';
+// const generateToken = functions.generateToken;
 
 const mapStateToProps = state => ({
     tasks: state.tasks,
@@ -9,7 +11,6 @@ const mapStateToProps = state => ({
     isAdmin: state.isAdmin,
     total:state.total,
 })
-
 
 function generateToken(id, params) {
   const { editableFields, token } = config;
@@ -21,22 +22,33 @@ function generateToken(id, params) {
   queryFields = queryFields.sort();
   queryFields = queryFields.concat('token');
 
+  function fixedEncodeURIComponent (str) {
+    return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
+      return '%' + c.charCodeAt(0).toString(16);
+    });
+  }
+  
+  let newResult = {};
   queryFields.map(field => {
-    query = `${query}&${encodeURIComponent(field)}=${encodeURIComponent(newParams[field])}`
+
+    const key = fixedEncodeURIComponent(field);
+    const value = fixedEncodeURIComponent(newParams[field]);
+    newResult[key] = value;
+
+    query = `${query}&${key}=${value}`
+
   })
 
   query = query.slice(1)
   return md5(query).toString();
 }
 
-function editRemote (id, params, signature) {
+function editRemote(id, params, signature) {
   const { baseUrl, developer } = config;
   let query = `?developer=${developer}`;
 
-  const { text, status, username, email} = params;
+  const { text, status} = params;
   const form = new FormData();
-  // form.append("email", email);
-  // form.append("username", username);
   form.append("text", text);
   form.append("status", status);
   form.append("token", 'beejee');
