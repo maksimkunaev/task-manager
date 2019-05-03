@@ -34,7 +34,53 @@ class Table extends Component {
     }
 
     @bind
-    renderTask(data){
+    onSortClick(key, direction) {
+
+        const queryParams = {
+            sort_field: key,
+            sort_direction: direction,
+            page: this.state.currentPage,
+        }
+        this.props.getAllTasks(queryParams);
+    }
+
+
+    @bind
+    renderHead(){
+        const { columns, isAdmin } = this.props;
+
+        return (
+          <tr className="block_wrap block">
+              {columns.map(({ title, width, key }) => {
+                  return <th key={key} width={width}>
+                      <div className="blockItems">
+                          <div className="blockItem">{title}</div>
+
+                          <div className="arrows">
+                              <div className="arrow-up" onClick={() => {
+                                  console.log(key, 'asc')
+                                  this.onSortClick.bind(this, key, 'asc')
+                              }}/>
+                              <div className='arrow-down' onClick={this.onSortClick.bind(this, key, 'desc')}/>
+                          </div>
+
+                      </div>
+                  </th>
+              })}
+
+              {isAdmin && <th className="" width={100}>
+                  <div className="headRow">
+                      <div className="blockItem" />
+                  </div>
+              </th>
+              }
+
+          </tr>
+        )
+    }
+
+    @bind
+    renderRow(data){
         const { id } = data;
         const { isEdit, editTaskId} = this.state;
         const { isAdmin } = this.props;
@@ -58,21 +104,12 @@ class Table extends Component {
                       </div>
                   </td>
               })}
-              {isAdmin &&  <td className="">
+              {isAdmin && <td className="">
                   <div className="blockItems">
                       <button className="button blockItem" onClick={this.onTaskClick.bind(this, id)}>edit</button>
                   </div>
               </td>
               }
-
-              {/*<td className="block">*/}
-                  {/*<div className="blockItems">*/}
-                      {/*{columns.map(({ key }) => {*/}
-                          {/*return <div className="blockItem">{data[key]}</div>*/}
-                      {/*})}*/}
-                  {/*</div>*/}
-                  {/*{isAdmin && <button className="button" onClick={this.onTaskClick.bind(this, id)}>edit</button>}*/}
-              {/*</td>*/}
 
           </tr>
         )
@@ -136,21 +173,35 @@ class Table extends Component {
 
     render() {
         const { data } = this.props;
+        const { id } = data;
+        const { isEdit, editTaskId} = this.state;
+        const isCurrentTaskEditable = isEdit && editTaskId === id;
+
+        if (isCurrentTaskEditable) {
+            return <tr className="block_wrap" key={id}>
+                <td className="block">
+                    <EditorField {...this.props} onChange={this.editTask.bind(this, id)} mode='edit' currentTaskId={id}/>
+                </td>
+            </tr>
+        }
+        const columns = this.props.columns;
 
         return (
           <div>
               <table className="tasks__list">
+                  <thead>
+                  {this.renderHead()}
+                  </thead>
                   <tbody>
-                  {data.map(taskData => {
-                      return this.renderTask(taskData)
-                  })}
+                      {data.map(taskData => {
+                          return this.renderRow(taskData)
+                      })}
                   </tbody>
-
               </table>
 
               {data.length > 0 && <div className="block__pagination">
                   {this.renderPagination()}
-              </div>
+                </div>
               }
 
           </div>

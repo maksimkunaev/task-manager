@@ -24,8 +24,8 @@ class TaskList extends Component {
             },
             {
                 key: 'status',
-                width: 50,
-                title:  'Status',
+                width: 150,
+                title: 'Status',
             },
         ];
     }

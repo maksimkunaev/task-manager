@@ -19,10 +19,12 @@
     background #fff
     box-shadow: 0 2px 6px rgba(64,73,96,0.07), 0 1px 0 rgba(64,73,96,0.05), 0 0 2px rgba(64,73,96,0.07);
 
+.headRow,
 .blockItems {
     display: flex;
-    justify-content: space-between;
     width: 100%;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .blockItem {
@@ -72,3 +74,19 @@
     height: auto;
     padding: 10px 8px;
     font-weight: 900;
+
+.arrow-up,
+.arrow-down
+    width: 15px
+    cursor: pointer
+    height: 15px
+    background url('media/up.svg');
+    background-size 100%
+    color: red
+
+.arrow-down
+    width: 15px
+    cursor: pointer
+    height: 15px
+    background url('media/down.svg');
+    background-size: 100%;
