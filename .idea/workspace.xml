@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9c509ee6-0357-4658-958b-2cb30c145f62" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/components/container.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/container.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/index.styl" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/index.styl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,10 +15,9 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/store/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="59" selection-start-line="59" selection-end-line="59" />
+            <state relative-caret-position="45">
+              <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
               <folding>
-                <element signature="e#63#146#0" />
                 <element signature="n#!!block;n#updateTasks#0" />
                 <element signature="e#211#665#0" />
                 <element signature="e#242#346#0" />
@@ -64,8 +60,54 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/container.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="129" column="8" lean-forward="true" selection-start-line="129" selection-start-column="8" selection-end-line="129" selection-end-column="8" />
+            <state relative-caret-position="255">
+              <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+              <folding>
+                <element signature="e#220#338#0" />
+                <element signature="e#763#966#0" />
+                <element signature="n#!!block;n#getAllRemote#0" />
+                <element signature="e#1566#1678#0" />
+                <element signature="e#1620#1674#0" />
+                <element signature="e#1722#1973#0" />
+                <element signature="e#1781#1822#0" />
+                <element signature="e#1844#1913#0" />
+                <element signature="e#1937#1968#0" />
+                <element signature="n#!!block;n#signIn#0" />
+                <element signature="e#2020#2066#0" />
+                <element signature="e#2110#2292#0" />
+                <element signature="e#2186#2217#0" />
+                <element signature="e#2223#2288#0" />
+                <element signature="n#!!block;n#addTaskRemote#0" />
+                <element signature="e#2633#3037#0" />
+                <element signature="e#2674#2861#0" />
+                <element signature="e#2887#2928#0" />
+                <element signature="e#2948#2976#0" />
+                <element signature="e#3217#3330#0" />
+                <element signature="e#3250#3319#0" />
+                <element signature="e#3336#3445#0" />
+                <element signature="e#3367#3434#0" />
+                <element signature="e#3000#3031#0" />
+                <element signature="e#3538#3617#0" />
+                <element signature="e#3105#3672#0" />
+                <element signature="e#3124#3201#0" />
+                <element signature="e#3223#3274#0" />
+                <element signature="e#3290#3349#0" />
+                <element signature="e#3429#3539#0" />
+                <element signature="e#3563#3667#0" />
+                <element signature="e#3940#4064#0" />
+                <element signature="e#4084#4432#0" />
+                <element signature="e#4121#4303#0" />
+                <element signature="e#4142#4185#0" />
+                <element signature="e#4218#4292#0" />
+                <element signature="e#4327#4424#0" />
+                <element signature="e#4356#4415#0" />
+                <element signature="n#!!block;n#onSuccess#0" />
+                <element signature="e#4529#4580#0" />
+                <element signature="e#4594#4652#0" />
+                <element signature="e#4666#4722#0" />
+                <element signature="n#!!block;n#onError#0" />
+                <element signature="e#4774#4828#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -178,7 +220,6 @@
         <option value="$PROJECT_DIR$/src/css/base.styl" />
         <option value="$PROJECT_DIR$/src/components/Table/index.jsx" />
         <option value="$PROJECT_DIR$/src/components/AddTask/AddTask.styl" />
-        <option value="$PROJECT_DIR$/src/store/index.js" />
         <option value="$PROJECT_DIR$/src/functions/index.js" />
         <option value="$PROJECT_DIR$/src/components/TaskList/index.jsx" />
         <option value="$PROJECT_DIR$/src/components/EditorField/EditorField.styl" />
@@ -186,6 +227,7 @@
         <option value="$PROJECT_DIR$/src/config/index.js" />
         <option value="$PROJECT_DIR$/src/components/index.styl" />
         <option value="$PROJECT_DIR$/webpack.config.js" />
+        <option value="$PROJECT_DIR$/src/store/index.js" />
         <option value="$PROJECT_DIR$/src/components/container.js" />
       </list>
     </option>
@@ -224,6 +266,12 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="tasker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tasker" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="store" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -235,7 +283,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556968465719" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556968471828" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -274,12 +322,12 @@
       <workItem from="1556839613979" duration="8549000" />
       <workItem from="1556852565332" duration="1345000" />
       <workItem from="1556883861203" duration="21330000" />
-      <workItem from="1556962659584" duration="1565000" />
+      <workItem from="1556962659584" duration="1837000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52564000" />
+    <option name="totallyTimeSpent" value="52836000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="947" extended-state="0" />
@@ -496,12 +544,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/index.styl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/store/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="59" selection-start-line="59" selection-end-line="59" />
+        <state relative-caret-position="45">
+          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
           <folding>
-            <element signature="e#63#146#0" />
             <element signature="n#!!block;n#updateTasks#0" />
             <element signature="e#211#665#0" />
             <element signature="e#242#346#0" />
@@ -529,13 +583,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/index.styl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webpack.config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -545,8 +592,54 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/container.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="129" column="8" lean-forward="true" selection-start-line="129" selection-start-column="8" selection-end-line="129" selection-end-column="8" />
+        <state relative-caret-position="255">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+          <folding>
+            <element signature="e#220#338#0" />
+            <element signature="e#763#966#0" />
+            <element signature="n#!!block;n#getAllRemote#0" />
+            <element signature="e#1566#1678#0" />
+            <element signature="e#1620#1674#0" />
+            <element signature="e#1722#1973#0" />
+            <element signature="e#1781#1822#0" />
+            <element signature="e#1844#1913#0" />
+            <element signature="e#1937#1968#0" />
+            <element signature="n#!!block;n#signIn#0" />
+            <element signature="e#2020#2066#0" />
+            <element signature="e#2110#2292#0" />
+            <element signature="e#2186#2217#0" />
+            <element signature="e#2223#2288#0" />
+            <element signature="n#!!block;n#addTaskRemote#0" />
+            <element signature="e#2633#3037#0" />
+            <element signature="e#2674#2861#0" />
+            <element signature="e#2887#2928#0" />
+            <element signature="e#2948#2976#0" />
+            <element signature="e#3217#3330#0" />
+            <element signature="e#3250#3319#0" />
+            <element signature="e#3336#3445#0" />
+            <element signature="e#3367#3434#0" />
+            <element signature="e#3000#3031#0" />
+            <element signature="e#3538#3617#0" />
+            <element signature="e#3105#3672#0" />
+            <element signature="e#3124#3201#0" />
+            <element signature="e#3223#3274#0" />
+            <element signature="e#3290#3349#0" />
+            <element signature="e#3429#3539#0" />
+            <element signature="e#3563#3667#0" />
+            <element signature="e#3940#4064#0" />
+            <element signature="e#4084#4432#0" />
+            <element signature="e#4121#4303#0" />
+            <element signature="e#4142#4185#0" />
+            <element signature="e#4218#4292#0" />
+            <element signature="e#4327#4424#0" />
+            <element signature="e#4356#4415#0" />
+            <element signature="n#!!block;n#onSuccess#0" />
+            <element signature="e#4529#4580#0" />
+            <element signature="e#4594#4652#0" />
+            <element signature="e#4666#4722#0" />
+            <element signature="n#!!block;n#onError#0" />
+            <element signature="e#4774#4828#0" />
+          </folding>
         </state>
       </provider>
     </entry>

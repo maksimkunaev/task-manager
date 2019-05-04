@@ -23,7 +23,7 @@ function editRemote(id, params, signature) {
   form.append("signature", signature);
 
   return new Promise((resolve, reject) => {
-      fetch(`s${baseUrl}/edit/${id}${query}`, {
+      fetch(`${baseUrl}/edit/${id}${query}`, {
         method: 'POST',
         crossDomain: true,
         mimeType: "multipart/form-data",
@@ -49,8 +49,6 @@ function editRemote(id, params, signature) {
                text: "Saving error"
              })
            }
-
-
             resolve(message);
         })
         .catch(error => {
