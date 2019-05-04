@@ -23,7 +23,7 @@ function editRemote(id, params, signature) {
   form.append("signature", signature);
 
   return new Promise((resolve, reject) => {
-      fetch(`${baseUrl}/edit/${id}${query}`, {
+      fetch(`s${baseUrl}/edit/${id}${query}`, {
         method: 'POST',
         crossDomain: true,
         mimeType: "multipart/form-data",
@@ -36,11 +36,21 @@ function editRemote(id, params, signature) {
             return response.json();
         })
         .then(data => {
-            const { message } = data;
-            notification.success({
-              title: 'Success',
-              text: 'Saved!'
-            })
+          const { message, status } = data;
+
+           if (status  === 'ok') {
+             notification.success({
+               title: 'Success',
+               text: 'Saved!'
+             })
+           } else if (status  === 'error'){
+             notification.error({
+               title: 'Error',
+               text: "Saving error"
+             })
+           }
+
+
             resolve(message);
         })
         .catch(error => {
@@ -118,10 +128,27 @@ function addTaskRemote(options) {
       .then(response => {
         return response.json();
       })
-      .then(() => {
+      .then((data) => {
+        const { message, status } = data;
+
+        if (status  === 'ok') {
+          notification.success({
+            title: 'Success',
+            text: 'Added!'
+          })
+        } else {
+          notification.error({
+            title: 'Error',
+            text: 'Adding task error'
+          })
+        }
         resolve();
       })
       .catch(error => {
+        notification.error({
+          title: 'Error',
+          text: 'Adding task error'
+        })
         reject(error)
       })
 
@@ -148,15 +175,9 @@ const mapDispatchToProps = dispatch => ({
     addTaskRemote(options.data)
      .then(getAllRemote)
       .then(data => {
-        notification.success({
-          text: 'Added!'
-        })
         onSuccess(data, dispatch)
       })
       .catch(error => {
-        notification.error({
-          text: error
-        })
         onError(error, dispatch)
       })
   },

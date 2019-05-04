@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 const initialState = {
-    isAdmin: false,
+    isAdmin: true,
     tasks: [],
     total: 0,
     loadingStatus: 'fetching',
