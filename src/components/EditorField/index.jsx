@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import styles from './EditorField.styl';
 import { bind } from 'decko';
 import cn from 'classnames';
+import { Select } from 'antd';
 import functions from '../../functions';
+
+const Option = Select.Option;
 const { validateEmail } = functions;
 
 class EditorField extends Component {
@@ -47,6 +50,14 @@ class EditorField extends Component {
 
         this.setState({
             [`${field}`]: e.target.value,
+        })
+    }
+
+    @bind
+    onChangeStatus(field) {
+        const status = field === 'new' ? 0 : 10;
+        this.setState({
+            status: status,
         })
     }
 
@@ -113,15 +124,22 @@ class EditorField extends Component {
                     value={this.state.text}
                     placeholder={'text'}
                     onChange={this.onChange.bind(this, 'text')}/>
-                  <input
+
+                  <Select
                     className={cn(styles.field, inValid.status && styles.invalid)}
-                    type="number"
-                    min={0}
-                    step={10}
-                    max={10}
-                    value={this.state.status}
-                    placeholder={'status'}
-                    onChange={this.onChange.bind(this, 'status')}/>
+                    showSearch
+                    style={{ width: 200 }}
+                    placeholder="status"
+                    optionFilterProp="children"
+                    onChange={this.onChangeStatus}
+                    onFocus={()=>{}}
+                    onBlur={()=>{}}
+                    onSearch={()=>{}}
+                    filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                  >
+                      <Option value="new">New</Option>
+                      <Option value="completed">Completed</Option>
+                  </Select>
               </form>
               <button type="submit" className={cn(styles.button, styles.field)} onClick={this.addTask}>{mode === 'add' ? 'Add' : 'Save'}</button>
           </div>

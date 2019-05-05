@@ -33,8 +33,8 @@ class TaskList extends Component {
                 title: 'Status',
                 render: data => {
                     return data.status === 0 ?
-                      <div style={{color: 'red'}}>new</div>
-                        : data.status === 10 ?  <div style={{color: 'green'}}>completed</div> : <div style={{color: 'red'}}>new</div>
+                      <div style={{color: 'red'}}>New</div>
+                        : data.status === 10 ?  <div style={{color: 'green'}}>Completed</div> : <div style={{color: 'red'}}>New</div>
                       }
             },
         ];

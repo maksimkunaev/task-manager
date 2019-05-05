@@ -17,7 +17,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(s)
     return (
         <div className={s.app}>
           <div className={s.container}>
