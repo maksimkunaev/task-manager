@@ -101,7 +101,8 @@ class EditorField extends Component {
 
     render() {
         const { mode } = this.props;
-        const { inValid } = this.state;
+        const { inValid, status } = this.state;
+        const  defaultStatus = status === 10 ? 'completed' : 'new'
 
         return (
           <div className={styles.editor}>
@@ -130,13 +131,9 @@ class EditorField extends Component {
                     showSearch
                     style={{ width: 200 }}
                     placeholder="status"
-                    defaultValue={'new'}
+                    defaultValue={defaultStatus}
                     optionFilterProp="children"
                     onChange={this.onChangeStatus}
-                    onFocus={()=>{}}
-                    onBlur={()=>{}}
-                    onSearch={()=>{}}
-                    filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                   >
                       <Option value="new">New</Option>
                       <Option value="completed">Completed</Option>
