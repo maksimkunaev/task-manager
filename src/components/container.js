@@ -181,7 +181,6 @@ const mapDispatchToProps = dispatch => ({
   },
   editTask: (id, data) => {
     const signature = generateToken(id, data);
-
     editRemote(id, data, signature)
       .then(getAllRemote)
       .then(data => onSuccess(data, dispatch))
