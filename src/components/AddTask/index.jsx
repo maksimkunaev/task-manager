@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './AddTask.styl';
+import styles from './AddTask.styl';
 import EditorField from '../EditorField'
 import { bind } from 'decko'
-
+import cn from 'classnames';
 class AddTask extends Component {
 
     constructor(props) {
@@ -29,9 +29,9 @@ class AddTask extends Component {
         const { isVisible } = this.state;
 
         return (
-          <button className="field button" onClick={this.onButtonClick}>
+          <button className={cn(styles.field, styles.button)} onClick={this.onButtonClick}>
               {isVisible ?
-                <div className="arrow-down"/> : <span>
+                <div className={styles[`arrow-down`]}/> : <span>
                   <div>+</div>
                   <div>Add</div>
                 </span>
@@ -43,7 +43,7 @@ class AddTask extends Component {
     render() {
 
         return (
-          <div className="addTask">
+          <div className={styles.addTask}>
               {
                   this.renderButton()
               }

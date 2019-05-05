@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './EditorField.styl';
+import styles from './EditorField.styl';
 import { bind } from 'decko';
 import cn from 'classnames';
 import functions from '../../functions';
@@ -93,28 +93,28 @@ class EditorField extends Component {
         const { inValid } = this.state;
 
         return (
-          <div className="editor">
-              <form className="fields">
+          <div className={styles.editor}>
+              <form className={styles.fields}>
                   <input
-                    className={cn('field', inValid.email && 'invalid')}
+                    className={cn(styles.field, inValid.email && styles.invalid)}
                     type="email"
                     value={this.state.email}
                     placeholder={'email'}
                     onChange={this.onChange.bind(this, 'email')}/>
                   <input
-                    className={cn('field', inValid.username && 'invalid')}
+                    className={cn(styles.field, inValid.username && styles.invalid)}
                     type="text"
                     value={this.state.username}
                     placeholder={'username'}
                     onChange={this.onChange.bind(this, 'username')}/>
                   <input
-                    className={cn('field', inValid.text && 'invalid')}
+                    className={cn(styles.field, inValid.text && styles.invalid)}
                     type="text"
                     value={this.state.text}
                     placeholder={'text'}
                     onChange={this.onChange.bind(this, 'text')}/>
                   <input
-                    className={cn('field', inValid.status && 'invalid')}
+                    className={cn(styles.field, inValid.status && styles.invalid)}
                     type="number"
                     min={0}
                     step={10}
@@ -122,10 +122,8 @@ class EditorField extends Component {
                     value={this.state.status}
                     placeholder={'status'}
                     onChange={this.onChange.bind(this, 'status')}/>
-
               </form>
-              <button type="submit" className="button field" onClick={this.addTask}>{mode === 'add' ? 'Add' : 'Save'}</button>
-              {/*<div className="field status" style={{visibility: 'visible'}}>Success!</div>*/}
+              <button type="submit" className={cn(styles.button, styles.field)} onClick={this.addTask}>{mode === 'add' ? 'Add' : 'Save'}</button>
           </div>
         )
     }

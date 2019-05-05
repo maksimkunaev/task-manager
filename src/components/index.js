@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./index.styl";
+import s from "./index.styl";
 import Header from "./Header";
 import TaskList from "./TaskList";
 import AddTask from "./AddTask";
@@ -17,9 +17,10 @@ class App extends Component {
   }
 
   render() {
-      return (
-        <div className="app">
-          <div className="container">
+    console.log(s)
+    return (
+        <div className={s.app}>
+          <div className={s.container}>
             <Header {...this.props}/>
             <AddTask {...this.props}/>
             <TaskList {...this.props} />

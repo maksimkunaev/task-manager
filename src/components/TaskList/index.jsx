@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './TaskList.styl';
+import styles from './TaskList.styl';
 import { bind } from 'decko';
 import Table from "../Table";
 import functions from '../../functions';
@@ -46,10 +46,10 @@ class TaskList extends Component {
         const columns = this.columns();
 
         return (
-            <main className='tasks'>
-                {loadingStatus === 'success' && !tasks.length && <div className='tasks__nodata'>Add Some Task</div>}
-                {loadingStatus === 'fetching' && <div className='tasks__nodata'>Loading...</div>}
-                {loadingStatus === 'error' && <div className='tasks__nodata'>Error fetching data.</div>}
+            <main className={styles.tasks}>
+                {loadingStatus === 'success' && !tasks.length && <div className={styles.tasks__nodata}>Add Some Task</div>}
+                {loadingStatus === 'fetching' && <div className={styles.tasks__nodata}>Loading...</div>}
+                {loadingStatus === 'error' && <div className={styles.tasks__nodata}>Error fetching data.</div>}
 
                 <Table { ...this.props} columns={columns} data={tasks}/>
             </main>
