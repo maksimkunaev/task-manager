@@ -130,6 +130,7 @@ class EditorField extends Component {
                     showSearch
                     style={{ width: 200 }}
                     placeholder="status"
+                    defaultValue={'new'}
                     optionFilterProp="children"
                     onChange={this.onChangeStatus}
                     onFocus={()=>{}}
