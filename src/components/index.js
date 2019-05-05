@@ -5,7 +5,7 @@ import TaskList from "./TaskList";
 import AddTask from "./AddTask";
 import container from "./container";
 import { bind } from 'decko';
-
+import 'antd/dist/antd.css';
 class App extends Component {
   componentDidMount() {
     this.getInitialRemote();

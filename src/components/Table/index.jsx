@@ -2,7 +2,31 @@ import React, { Component } from 'react';
 import styles from './Table.styl';
 import { bind } from 'decko';
 import EditorField from "../EditorField";
-import cn from 'classnames'
+import cn from 'classnames';
+import { Rate } from 'antd';
+
+const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
+
+class Rater extends React.Component {
+    state = {
+        value: 3,
+    }
+
+    handleChange = (value) => {
+        this.setState({ value });
+    }
+
+    render() {
+        const { value } = this.state;
+        return (
+          <span>
+        <Rate tooltips={desc} onChange={this.handleChange} value={value} />
+              {value ? <span className="ant-rate-text">{desc[value - 1]}</span> : ''}
+      </span>
+        );
+    }
+}
+
 class Table extends Component {
 
     constructor(props) {
@@ -187,6 +211,7 @@ class Table extends Component {
 
         return (
           <div className={styles.tableWrap}>
+              <Rater />
               {data.length > 0 && <table className={styles.tasks__list}>
                   <thead>
                   {this.renderHead()}
