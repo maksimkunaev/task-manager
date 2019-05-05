@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './Header.styl';
+import styles from './Header.styl';
 import { bind } from 'decko';
-
+import cn from 'classnames';
 class Header extends Component {
 
     constructor(props) {
@@ -44,22 +44,22 @@ class Header extends Component {
     renderFormAuth() {
         this.login && this.login.focus()
         return (
-          <form className="authForm">
+          <form className={styles.authForm}>
               <input
-                autoFocus="true"
-                className="field"
+                autoFocus={true}
+                className={styles.field}
                 type="text"
                 value={this.state.login}
                 placeholder={'login'}
                 onChange={this.onChange.bind(this, 'login')}/>
 
               <input
-                className="field"
+                className={styles.field}
                 type="text"
                 value={this.state.password}
                 placeholder={'password'}
                 onChange={this.onChange.bind(this, 'password')}/>
-              <button type="submit" className="field button" onClick={this.onSignIn}>Sign In</button>
+              <button type="submit" className={cn(styles.field, styles.button)} onClick={this.onSignIn}>Sign In</button>
           </form>
         )
     }
@@ -84,10 +84,10 @@ class Header extends Component {
 
 
         return (
-          <div className="header">
-              <h1 className="title">Task Manager</h1>
+          <div className={styles.header}>
+              <h1 className={styles.title}>Task Manager</h1>
 
-              <button type="submit" className="button field login" onClick={this.onLoginClick}>{isAdmin ? 'Admin' : 'Login'}</button>
+              <button type="submit" className={cn(styles.button, styles.field, styles.login)} onClick={this.onLoginClick}>{isAdmin ? 'Admin' : 'Login'}</button>
 
               {isFormAuthVisible && !isAdmin &&  this.renderFormAuth()}
           </div>

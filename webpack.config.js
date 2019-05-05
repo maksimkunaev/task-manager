@@ -10,7 +10,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: 'main.js',
+        filename: 'main_script_1.js',
     },
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
@@ -24,7 +24,20 @@ module.exports = {
                 exclude: /node_modules/,
                 use: [
                     {
-                        loader: 'babel-loader'
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ["@babel/preset-env", "@babel/preset-react"],
+                            plugins: [
+                                "@babel/plugin-syntax-dynamic-import",
+                                "@babel/plugin-proposal-object-rest-spread",
+                                ["import", {
+                                    "libraryName": "antd",
+                                    style: 'css'
+                                }],
+                                ["@babel/plugin-proposal-decorators", { "legacy": true }],
+                                ["@babel/plugin-proposal-class-properties", { "loose" : true }]
+                            ],
+                        }
                     }
                 ]
             },
@@ -37,7 +50,17 @@ module.exports = {
             },
             {
                 test: /\.styl$/,
-                loader: 'style-loader!css-loader!stylus-loader'
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            localIdentName: '[name]__[local]___[hash:base64:5]'
+                        }
+                    },
+                    'stylus-loader'
+                ]
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
