@@ -10,7 +10,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: 'main.js',
+        filename: 'main_sd45.js',
     },
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
