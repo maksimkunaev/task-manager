@@ -24,7 +24,17 @@ module.exports = {
                 exclude: /node_modules/,
                 use: [
                     {
-                        loader: 'babel-loader'
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ["@babel/preset-env", "@babel/preset-react"],
+                            plugins: [
+                                "@babel/plugin-syntax-dynamic-import",
+                                "@babel/plugin-proposal-object-rest-spread",
+                                ["import", { "libraryName": "antd" }],
+                                ["@babel/plugin-proposal-decorators", { "legacy": true }],
+                                ["@babel/plugin-proposal-class-properties", { "loose" : true }]
+                            ],
+                        }
                     }
                 ]
             },
