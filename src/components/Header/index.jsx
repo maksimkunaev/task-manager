@@ -46,7 +46,7 @@ class Header extends Component {
         return (
           <form className={styles.authForm}>
               <input
-                autoFocus="true"
+                autoFocus={true}
                 className={styles.field}
                 type="text"
                 value={this.state.login}
