@@ -25,7 +25,6 @@ class Header extends Component {
     onSignIn(e) {
         e.preventDefault();
 
-
         const {
                 login,
                 password,
@@ -37,12 +36,12 @@ class Header extends Component {
         }
 
         this.props.signIn(data);
-
     }
 
     @bind
     renderFormAuth() {
-        this.login && this.login.focus()
+        this.login && this.login.focus();
+
         return (
           <form className={styles.authForm}>
               <input
@@ -81,7 +80,6 @@ class Header extends Component {
     render() {
         const { isFormAuthVisible } = this.state;
         const { isAdmin } = this.props;
-
 
         return (
           <div className={styles.header}>

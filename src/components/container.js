@@ -1,8 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import config from '../config';
 import functions from '../functions';
 const { generateToken, notification } = functions;
+
+import api from '../api';
+const {
+  editRemote,
+  getAllRemote,
+  signIn,
+  addTaskRemote
+} = api;
 
 const mapStateToProps = state => ({
     tasks: state.tasks,
@@ -10,148 +17,6 @@ const mapStateToProps = state => ({
     isAdmin: state.isAdmin,
     total:state.total,
 })
-
-function editRemote(id, params, signature) {
-  const { baseUrl, developer, token } = config;
-  let query = `?developer=${developer}`;
-
-  const { text, status} = params;
-  const form = new FormData();
-  form.append("text", text);
-  form.append("status", status);
-  form.append("token", token);
-  form.append("signature", signature);
-
-  return new Promise((resolve, reject) => {
-      fetch(`${baseUrl}/edit/${id}${query}`, {
-        method: 'POST',
-        crossDomain: true,
-        mimeType: "multipart/form-data",
-        contentType: false,
-        processData: false,
-        body: form,
-        dataType: "json",
-      })
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-          const { message, status } = data;
-
-           if (status  === 'ok') {
-             notification.success({
-               title: 'Success',
-               text: 'Saved!'
-             })
-           } else if (status  === 'error'){
-             notification.error({
-               title: 'Error',
-               text: "Saving error"
-             })
-           }
-            resolve(message);
-        })
-        .catch(error => {
-          notification.error({
-            title: 'Error',
-            text: error
-          })
-            reject(error)
-        })
-  })
-}
-
-function getAllRemote (params) {
-  const { baseUrl, developer } = config;
-  let query = `?developer=${developer}`;
-
-  for (let key in params) {
-
-    if (params.hasOwnProperty(key) && params[key]) {
-      query = `${query}&${key}=${params[key]}`
-    }
-  }
-
-  return new Promise((resolve, reject) => {
-    fetch(`${baseUrl}/${query}`)
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        const { message } = data;
-        resolve(message);
-      })
-      .catch(error => {
-        reject(error)
-      })
-  })
-}
-
-function signIn (data) {
-  const config = {
-    login: 'admin',
-    password: '123',
-  }
-
-  return new Promise((resolve, reject) => {
-    if (data.password === config.password && data.login === config.login) {
-      return resolve();
-    } else {
-      return reject('Password or login is not correct!');
-    }
-  })
-}
-
-function addTaskRemote(options) {
-  const { baseUrl, developer } = config;
-
-  const query = `?developer=${developer}`;
-
-  const { username, email, text } = options;
-  const form = new FormData();
-  form.append("username", username);
-  form.append("email", email);
-  form.append("text", text);
-
-  return new Promise((resolve, reject) => {
-    fetch(`${baseUrl}/create${query}`, {
-      method: 'POST',
-      crossDomain: true,
-      mimeType: "multipart/form-data",
-      contentType: false,
-      processData: false,
-      body: form,
-      dataType: "json",
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then((data) => {
-        const { message, status } = data;
-
-        if (status  === 'ok') {
-          notification.success({
-            title: 'Success',
-            text: 'Added!'
-          })
-        } else {
-          notification.error({
-            title: 'Error',
-            text: 'Adding task error'
-          })
-        }
-        resolve();
-      })
-      .catch(error => {
-        notification.error({
-          title: 'Error',
-          text: 'Adding task error'
-        })
-        reject(error)
-      })
-
-  })
-}
 
 const mapDispatchToProps = dispatch => ({
   addTask: (data) => {

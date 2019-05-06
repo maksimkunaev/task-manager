@@ -16,17 +16,17 @@ function updateTasks(state = initialState.tasks, action) {
             ];
 
         case 'edit':
-            const res =  state.map(task => {
+            return state.map(task => {
                 if (task.id === action.id) {
                     return { ...task, ...action.data};
                 }
                 return task;
             });
-            return res;
 
         case 'updateAll':
             return action.list;
     }
+
     return state;
 }
 
@@ -35,11 +35,11 @@ function getLoadingState(state = initialState.loadingStatus, action) {
         case 'loading':
             return action.loadingStatus;
     }
+
     return state;
 }
 
 function authorize(state = initialState.isAdmin, action) {
-
     switch (action.type) {
         case 'signIn':
             return true;

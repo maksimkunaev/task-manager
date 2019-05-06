@@ -25,7 +25,7 @@ class EditorField extends Component {
         }
     }
 
-    componentWillMount () {
+    componentWillMount() {
         if (this.props.mode === 'edit') {
             this.setInitState();
         }
@@ -56,6 +56,7 @@ class EditorField extends Component {
     @bind
     onChangeStatus(field) {
         const status = field === 'new' ? 0 : 10;
+
         this.setState({
             status: status,
         })
@@ -80,6 +81,7 @@ class EditorField extends Component {
                     text: !text,
                 }
             })
+
             return;
         }
 
@@ -128,7 +130,6 @@ class EditorField extends Component {
 
                   <Select
                     className={cn(styles.field, inValid.status && styles.invalid)}
-                    showSearch
                     style={{ width: 200 }}
                     placeholder="status"
                     defaultValue={defaultStatus}
