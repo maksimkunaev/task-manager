@@ -42,7 +42,6 @@ class TaskList extends Component {
 
     render() {
         const {tasks, loadingStatus} = this.props;
-
         const columns = this.columns();
 
         return (

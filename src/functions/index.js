@@ -4,10 +4,9 @@ import md5 from "crypto-js/md5";
 function generateToken(id, params) {
   const { editableFields, token } = config;
   let query = ``;
-
   let newParams = { ...params, token };
-
   let queryFields = editableFields;
+
   queryFields = queryFields.sort();
   queryFields = queryFields.concat('token');
 
@@ -25,7 +24,6 @@ function generateToken(id, params) {
     newResult[key] = value;
 
     query = `${query}&${key}=${value}`
-
   })
 
   query = query.slice(1)
@@ -48,11 +46,9 @@ const notification = {
     const wrap = document.createElement('div');
     const titleElem = document.createElement('div');
     const descriptionText = document.createElement('div');
-    const titleText = title ? title : mode;
-    titleElem.textContent = titleText;
+    titleElem.textContent = title ? title : mode;
     titleElem.style.color = mainColor;
     descriptionText.textContent = text;
-
 
     wrap.appendChild(titleElem);
     wrap.appendChild(descriptionText);
@@ -75,6 +71,7 @@ const notification = {
     setTimeout(() => {
       document.body.removeChild(wrap)
     }, (delay || 3000) + 300)
+
     return wrap;
   },
   success: function(config) {

@@ -36,7 +36,6 @@ class Table extends Component {
 
     @bind
     onSortClick(key, direction) {
-
         const queryParams = {
             sort_field: key,
             sort_direction: direction,
@@ -111,7 +110,6 @@ class Table extends Component {
                   </div>
               </td>
               }
-
           </tr>
         )
     }
@@ -146,11 +144,11 @@ class Table extends Component {
             }
         }
 
-
         const button = (index, style) => {
             return index ? <div className={style} key={index} onClick={this.goToPage.bind(this, index)}>{index}</div> :
               <div className={cn(style, styles.navigation_button_dots)} key={index} >...</div>
         }
+
         for (let i of range) {
             const classes = cn({
                 [styles.navigation_button]: true,

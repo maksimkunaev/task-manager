@@ -8,6 +8,7 @@ function editRemote(id, params, signature) {
 
   const { text, status} = params;
   const form = new FormData();
+
   form.append("text", text);
   form.append("status", status);
   form.append("token", token);
@@ -16,12 +17,7 @@ function editRemote(id, params, signature) {
   return new Promise((resolve, reject) => {
       fetch(`${baseUrl}/edit/${id}${query}`, {
         method: 'POST',
-        crossDomain: true,
-        mimeType: "multipart/form-data",
-        contentType: false,
-        processData: false,
         body: form,
-        dataType: "json",
       })
         .then(response => {
             return response.json();
@@ -79,13 +75,13 @@ function getAllRemote(params) {
 }
 
 function signIn(data) {
-  const config = {
-    login: 'admin',
-    password: '123',
-  }
+  const {
+    login,
+    password,
+  } = config
 
   return new Promise((resolve, reject) => {
-    if (data.password === config.password && data.login === config.login) {
+    if (data.password === password && data.login === login) {
       return resolve();
     } else {
       return reject('Password or login is not correct!');
@@ -107,12 +103,7 @@ function addTaskRemote(options) {
   return new Promise((resolve, reject) => {
     fetch(`${baseUrl}/create${query}`, {
       method: 'POST',
-      crossDomain: true,
-      mimeType: "multipart/form-data",
-      contentType: false,
-      processData: false,
       body: form,
-      dataType: "json",
     })
       .then(response => {
         return response.json();
@@ -140,7 +131,6 @@ function addTaskRemote(options) {
         })
         reject(error)
       })
-
   })
 }
 
