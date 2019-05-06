@@ -130,7 +130,6 @@ class EditorField extends Component {
 
                   <Select
                     className={cn(styles.field, inValid.status && styles.invalid)}
-                    showSearch
                     style={{ width: 200 }}
                     placeholder="status"
                     defaultValue={defaultStatus}
