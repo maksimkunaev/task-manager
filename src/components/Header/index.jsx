@@ -1,96 +1,89 @@
-import React, { Component } from 'react';
-import styles from './Header.styl';
-import { bind } from 'decko';
-import cn from 'classnames';
-class Header extends Component {
+import React, { PureComponent } from 'react';
+import {
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+} from 'recharts';
+import { Table, Button, Popover } from 'antd';
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            error: '',
-            login: '',
-            password: '',
-            isFormAuthVisible: false,
-        }
-    }
+const data = [
+  {
+    name: '12 aug 2019', pv: 0, amt: 1000,
+  },
+  {
+    name: '12 aug 2019', pv: 3000, amt: 1000,
+  },
+  {
+    name: '12 aug 2019', pv: 2000, amt: 1000,
+  },
+  {
+    name: '12 aug 2019', pv: 2780, amt: 1000,
+  },
+  {
+    name: '12 aug 2019', pv: 1890, amt: 1000,
+  },
+  {
+    name: '12 aug 2019', pv: 2390, amt: 1000,
+  },
+  {
+    name: '12 aug 2019', pv: 3490, amt: 1000,
+  },
+];
 
-    @bind
-    onLoginClick() {
-        this.setState({
-            isFormAuthVisible: !this.state.isFormAuthVisible,
-        })
-    }
 
-    @bind
-    onSignIn(e) {
-        e.preventDefault();
+const dataSource = [
+  {
+    source: 'YandexDirekt',
+    total: 2600,
+    diff: 100,
+    key: 'YandexDirekt'
+  },
+  {
+    key: 'Google AdWords',
+    source: 'Google AdWords',
+    total: 2550,
+    diff: 80,
+  },
+];
 
-        const {
-                login,
-                password,
-        } = this.state;
+const columns = [
+  {
+    title: 'Все источники в среднем',
+    dataIndex: 'source',
+    key: 'source',
+  },
+  {
+    title: '',
+    dataIndex: 'total',
+    key: 'total',
+  },
+  {
+    title: '',
+    dataIndex: 'diff',
+    key: 'diff',
+    render: (text, record) =>
+      <Popover content={text} key>
+        {text}
+      </Popover>
+  },
+];
 
-        const data = {
-            login,
-            password,
-        }
 
-        this.props.signIn(data);
-    }
+export default class Example extends PureComponent {
+  render() {
+    return (
+      <div>
+        <Table dataSource={dataSource} columns={columns} pagination={false}/>
 
-    @bind
-    renderFormAuth() {
-        this.login && this.login.focus();
+        <ResponsiveContainer width="100%" height={600}>
+          <LineChart data={data}>
+            <CartesianGrid stroke="#ccc" />
+            <XAxis dataKey="name" />
+            <YAxis ticks={[500, 1000,1500, 2000]}/>
+            <Tooltip />
+            <Line type="linear" dataKey="pv" stroke="#00981a" />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
 
-        return (
-          <form className={styles.authForm}>
-              <input
-                autoFocus={true}
-                className={styles.field}
-                type="text"
-                value={this.state.login}
-                placeholder={'login'}
-                onChange={this.onChange.bind(this, 'login')}/>
-
-              <input
-                className={styles.field}
-                type="text"
-                value={this.state.password}
-                placeholder={'password'}
-                onChange={this.onChange.bind(this, 'password')}/>
-              <button type="submit" className={cn(styles.field, styles.button)} onClick={this.onSignIn}>Sign In</button>
-          </form>
-        )
-    }
-
-    @bind
-    onChange(field, e) {
-
-        this.setState({
-            inValid: {
-                [`${field}`]: false
-            }
-        })
-
-        this.setState({
-            [`${field}`]: e.target.value,
-        })
-    }
-
-    render() {
-        const { isFormAuthVisible } = this.state;
-        const { isAdmin } = this.props;
-
-        return (
-          <div className={styles.header}>
-              <h1 className={styles.title}>Task Manager</h1>
-
-              <button type="submit" className={cn(styles.button, styles.field, styles.login)} onClick={this.onLoginClick}>{isAdmin ? 'Admin' : 'Login'}</button>
-
-              {isFormAuthVisible && !isAdmin &&  this.renderFormAuth()}
-          </div>
-        )
-    }
+    );
+  }
 }
-
-export default Header;

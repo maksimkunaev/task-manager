@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import s from "./index.styl";
 import Header from "./Header";
-import TaskList from "./TaskList";
-import AddTask from "./AddTask";
 import container from "./container";
 import { bind } from 'decko';
 import 'antd/dist/antd.css';
@@ -21,9 +19,7 @@ class App extends Component {
     return (
         <div className={s.app}>
           <div className={s.container}>
-            <Header {...this.props}/>
-            <AddTask {...this.props}/>
-            <TaskList {...this.props} />
+            <Header />
           </div>
         </div>
       );

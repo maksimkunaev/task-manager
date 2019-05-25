@@ -1,7 +1,7 @@
-Task Manager
+Dashboard
 
 To start:
 
 ```npm run dev```
 
-**demo:** http://termuovex.zzz.com.ua/
+**demo:**
