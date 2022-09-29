@@ -48,7 +48,7 @@
     "react-chartjs-2": "^2.7.6",
     "react-dom": ">=16.4.2",
     "react-redux": "^5.0.7",
-    "recharts": "^1.6.2",
+    "recharts": "^2.1.14",
     "redux": "^4.0.0"
   }
 }
